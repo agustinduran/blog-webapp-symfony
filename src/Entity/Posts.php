@@ -27,10 +27,10 @@ class Posts
     /**
      * @ORM\Column(type="string", length=1000, nullable=true)
      */
-    private $likes;
+    private $likes = '';
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $foto;
 
@@ -58,6 +58,7 @@ class Posts
     public function __construct()
     {
         $this->comentarios = new ArrayCollection();
+        $this->fecha_publicacion = new \DateTime();
     }
 
     public function getId(): ?int

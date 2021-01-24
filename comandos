@@ -1,0 +1,44 @@
+#CREAR EL PROYECTO
+symfony new [NOMBRE_PROYECTO] --full 
+
+#INICIAR EL SERVIDOR
+symfony -d server:start
+
+# INICIALIZAR LA BASE DE DATOS QUE INTRODUCIMOS EN EL .env.local
+# EN CASO DE ERROR EL PROBLEMA ES QUE ESTÁ INTENTANDO CREAR UNA BASE DE DATOS Postgre, descomentar la linea mysql en el .env y .env.local
+php bin/console doctrine:database:create
+
+# CREAR ENTIDAD
+php bin/console make:entity 
+#Al crear una entidad se puede poner '?' para mostrar las opciones disponibles
+
+# Actualizar la base de datos con las entidades del proyecto
+php bin/console doctrine:schema:update --force
+
+# CREAR LA TABLA DE USUARIOS, (EL FRAMEWORK DISPONE FUNCIONALIDADES DE SEGURIDAD ESPECIFICAS DEL USUARIO)
+php bin/console make:user
+
+# EN CASO DE AGREGAR NUEVOS CAMPOS, PODEMOS AUTOGENERAR SUS GETTERS Y SETTERS 
+php bin/console make:entity --regenerate App
+
+# PERMITE AGREGAR NUEVOS CAMPOS A UNA ENTIDAD
+php bin/console make:entity User
+# Your entity already exists! So let's add some new fields!
+# al estar la entidad creada te permite seguir agregándole los atributos y te la actualiza.
+
+# GENERAR RELACIONES ENTRE ENTIDADES (TABLAS)
+# Utilizar el comando php bin/console make:entity User, Agregar el atributo de tipo relation
+# especificar la entidad con la que está relacionada
+
+# CREAR CONTROLADOR
+php bin/console make:controller
+
+# CREAR FORMULARIO
+php bin/console make:form
+# al generarlo debo poner bien su tipo. Ver https://symfony.com/doc/current/reference/forms/types.html
+
+# GENERAR UN LOGIN, NECESITAMOS UN BUNDLE ESPECIFICO, CON ESTE BUNDLE ME OLVIDO DE LA PARTE DE SEGURIDAD
+composer require symfony/security-bundle
+
+# PARA CREAR EL LOGIN
+php bin/console make:auth

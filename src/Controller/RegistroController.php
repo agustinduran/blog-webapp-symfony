@@ -26,14 +26,6 @@ class RegistroController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $plainPassword = $form['password']->getData();
             $user->setPassword($passwordEncoder->encodePassword($user, $plainPassword));
-            //
-            //$profesionesRepo = new ProfesionRepository();
-            $profesion = new Profesion();
-            $profesion->setNombre('Desarrollador de Software');
-            $em->persist($profesion);
-
-            $user->setIdProfesion($profesion);
-            //
             $em->persist($user);
             $em->flush();
             $this->addFlash('success', 'Se ha registrado completamente');
