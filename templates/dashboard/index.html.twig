@@ -4,4 +4,35 @@
 
 {% block body %}
     <h1> {{ controller_name }}! ✅</h1>
+
+    {# total items count #}
+    <div class="count">
+        {{ pagination.getTotalItemCount }}
+    </div>
+    <table>
+        <tr>
+            {# sorting of properties based on query components #}
+            <th>{{ knp_pagination_sortable(pagination, 'Id', 'a.id') }}</th>
+            <th{% if pagination.isSorted('a.Title') %} class="sorted"{% endif %}>
+                {{ knp_pagination_sortable(pagination, 'Title', 'a.title') }}
+            </th>
+            <th{% if pagination.isSorted(['a.date', 'a.time']) %} class="sorted"{% endif %}>
+                {{ knp_pagination_sortable(pagination, 'Release', ['a.date', 'a.time']) }}
+            </th>
+        </tr>
+
+        {# table body #}
+        {% for post in pagination %}
+            <tr {% if loop.index is odd %}class="color"{% endif %}>
+                <td>{{ post.id }}</td>
+                <td>{{ post.titulo }}</td>
+                <td>{{ post.foto }}</td>
+                <td>{{ post.fecha_publicacion | date('Y-m-d') }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    {# display navigation #}
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
 {% endblock %}

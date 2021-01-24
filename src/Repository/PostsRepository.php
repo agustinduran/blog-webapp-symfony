@@ -48,12 +48,12 @@ class PostsRepository extends ServiceEntityRepository
     }
     */
 
-    public function obtenerTodosLosPosts()
+    public function obtenerTodosLosPostsQuery()
     {
         return $this->getEntityManager()
             ->createQuery('
                 SELECT post.id, post.titulo, post.foto, post.fecha_publicacion
                 FROM App:Posts post
-            ')->getResult();
+            ');
     }
 }
