@@ -66,4 +66,26 @@ class PostsController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+
+    /**
+     * @Route("/ver/{id}", name="ver")
+     */
+    public function verPost($id): Response
+    {
+        $em   = $this->getDoctrine()->getManager();
+        $post = $em->getRepository(Posts::class)->find($id);
+        return $this->render('posts/ver_post.html.twig', ['post' => $post]);
+    }
+
+    /**
+     * @Route("/listado/usuario/yo", name="listado_usuario_yo")
+     */
+    public function verListadoDeMisPost(): Response
+    {
+        $em   = $this->getDoctrine()->getManager();
+        $user = $this->getUser();
+        $posts = $em->getRepository(Posts::class)->findBy(['id_creador' => $user]);
+        return $this->render('posts/ver_listado.html.twig', ['posts' => $posts]);
+    }
+
 }
