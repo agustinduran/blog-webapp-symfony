@@ -1,8 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello DashboardController!{% endblock %}
+{% block title %}{{ parent() }}Dashboard{% endblock %}
 
 {% block body %}
+    {{ parent() }}
     <h1> {{ controller_name }}! ✅</h1>
 
     {# total items count #}
