@@ -4,12 +4,6 @@
 
 {% block body %}
     {{ parent() }}
-    <h1> {{ controller_name }}! ✅</h1>
-
-    {# total items count #}
-    <div class="count">
-        {{ pagination.getTotalItemCount }}
-    </div>
     <table>
         <tr>
             {# sorting of properties based on query components #}
@@ -32,8 +26,40 @@
             </tr>
         {% endfor %}
     </table>
-    {# display navigation #}
-    <div class="navigation">
-        {{ knp_pagination_render(pagination) }}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 cursor">
+
+                {% for post in pagination %}
+                <div class="bg-white rounded p-3 my-3"  onclick="window.location.href='{{ path('postsver', { id: post.id }) }}'">
+                    <div class="d-flex bd-highlight">
+                        <div class="p-2 flex-grow-1 bd-highlight">
+                            <h3>{{ post.titulo }}</h3>
+                            <div class="my-3 bg-yellow"> <i class="fa fa-user"></i><strong> Creado por {{ post.nombre }}</strong></div>
+                            <div class=" bg-green"><i class="far fa-clock"></i> <strong>Fecha de publicación: {{ post.fecha_publicacion | date('Y-m-d') }}</strong></div>
+                        </div>
+                        <div class="p-2 bd-highlight">
+                            <div class="align-self-center">
+                                <img class="rounded" src="{{ asset('uploads/fotos/'~post.foto) }}" width="150px">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+            </div>
+            <div class="col-md-4">
+                <div class="bg-white rounded p-3 my-3">
+                    <h4>Comentarios</h4>
+                </div>
+            </div>
+        </div>
     </div>
+    <div class="d-flex justify-content-center">
+        <div class="navigation">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+    </div>
+
 {% endblock %}

@@ -52,8 +52,9 @@ class PostsRepository extends ServiceEntityRepository
     {
         return $this->getEntityManager()
             ->createQuery('
-                SELECT post.id, post.titulo, post.foto, post.fecha_publicacion
+                SELECT post.id, post.titulo, post.foto, post.fecha_publicacion, user.nombre
                 FROM App:Posts post
+                JOIN post.id_creador user
             ');
     }
 }
